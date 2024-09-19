@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'livereload',
     'django.contrib.staticfiles',
     'bootstrap5',
+    'myapp'
 ]
 
 MIDDLEWARE = [

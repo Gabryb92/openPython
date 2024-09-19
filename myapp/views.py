@@ -5,7 +5,7 @@ from django.contrib import messages
 from myapp.authentication import GVMBackend
 from django.contrib.auth.decorators import login_required
 from myapp.utils.ssh_connection import execute_ssh_command
-from myapp.services.targets_service import get_data_targets
+from myapp.services.targets_service import get_data_targets, create_target
 import crypt
 
 
@@ -33,16 +33,7 @@ def login_view(request):
             return redirect('dashboard')
         else:
             messages.error(request, "Username o password non corretti")
-            # Mostra gli hash nella pagina per debugging
-            # stored_hash = request.session.get('stored_hash', 'N/A')
-            # generated_hash = request.session.get('generated_hash', 'N/A')
-
-            # messages.error(request, f"Stored Hash: {stored_hash}")
-            # messages.error(request, f"Generated Hash: {generated_hash}")
-
-            # Pulisci i valori di debug dalla sessione
-            # request.session.pop('stored_hash', None)
-            # request.session.pop('generated_hash', None)
+            
 
             
             
@@ -66,6 +57,19 @@ def hosts_view(request):
     #print(devices)
     return render(request,'myapp/hosts.html',{'devices': devices})
 
+
 def targets_view(request):
+    if request.method == 'POST':
+        # Salva il target nel DB
+        selected_hosts = request.POST.getlist('selected_hosts')  # Prendi tutti gli host selezionati
+        mac_vendors = request.POST.getlist('name')  # Prendi tutti i nomi (o MAC Vendor)
+        print(selected_hosts,mac_vendors)
+        devices = list(zip(selected_hosts, mac_vendors))
+        print(devices)
+        if selected_hosts:
+            for device in devices:
+                create_target(device[0], device[1])  # Crea il target con il nome e l'host
+        
     targets = get_data_targets()
     return render(request,'myapp/targets.html',{'targets':targets})
+

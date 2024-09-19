@@ -28,6 +28,7 @@ urlpatterns = [
     path('hosts/',login_required(views.hosts_view),name='hosts'),
     path('targets/',login_required(views.targets_view),name='targets'),
     
+    
     #path('login/', views.login_view,name='login'),
     #path('',views.index,name='index')
     
