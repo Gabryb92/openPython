@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Default Title{% endblock %}</title>
+    {% load livereload_tags %}
+    {% load static %} 
+    {% load bootstrap5 %} 
+    {% bootstrap_css %} 
+    {% bootstrap_javascript %}
+    {% livereload_script %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'myapp/css/style.css' %}"
+    />
+  </head>
+  <body>
+    
+    {% include 'myapp/components/navbar.html' %} {% comment %} Blocco dinamico
+    {% endcomment %} {% block content %} {% endblock %}
+  </body>
+
+  <script src="https://kit.fontawesome.com/8f2c05c7d2.js" crossorigin="anonymous"></script>
+</html>

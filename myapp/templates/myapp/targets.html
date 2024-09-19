@@ -1,0 +1,25 @@
+{% extends "myapp/base.html" %} 
+{% block title %}Targets{% endblock %}
+{% block content %}
+
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Hosts</th>
+            <th scope="col">IPs</th>
+            <th scope="col">Port List</th>
+            <th scope="col">Credentials</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+</table>
+{% for target in targets %}
+
+    <tr>
+        <td>{{target}}</td>
+    </tr>
+
+{% endfor %}
+
+{% endblock %}
