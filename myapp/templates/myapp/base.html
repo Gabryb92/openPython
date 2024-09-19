@@ -13,7 +13,7 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="{% static 'myapp/css/style.css' %}"
+      href="{% static 'myapp/css/style.css' %}?{% now 'U' %}"
     />
   </head>
   <body>
@@ -23,4 +23,6 @@
   </body>
 
   <script src="https://kit.fontawesome.com/8f2c05c7d2.js" crossorigin="anonymous"></script>
+
+  <script src="{% static 'myapp/js/main.js' %}?{% now 'U' %}"></script>
 </html>

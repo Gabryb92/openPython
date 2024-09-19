@@ -1,3 +1,9 @@
 .text-dark {
   color: black !important;
 }
+
+a.text-dark:hover i {
+    color: #010202e2;
+    transform: scale(1.2); /* Aumenta leggermente la dimensione per l'effetto */
+    transition: all 0.3s ease; /* Animazione fluida per l'hover */
+}
