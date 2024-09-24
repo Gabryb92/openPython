@@ -16,7 +16,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{% url 'dashboard' %}">Dashboard</a>
+          <a class="nav-link" aria-current="page" href="{% url 'dashboard' %}"> <i class="fa-solid fa-gauge"></i> Dashboard</a>
         </li>
         <li class="nav-item dropdown">
           <a
@@ -26,7 +26,7 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Scansioni
+            <i class="fa-solid fa-binoculars me-1"></i>Scansioni
           </a>
           <ul class="dropdown-menu">
             <li>
@@ -46,7 +46,7 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Assets
+            <i class="fa-solid fa-wrench me-1"></i>Assets
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{% url 'hosts' %}">Hosts</a></li>
@@ -62,7 +62,7 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Configurations
+            <i class="fa-solid fa-gear me-1"></i>Configurations
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{% url 'targets' %}">Targets</a></li>
@@ -84,7 +84,7 @@
         <form class="d-flex align-items-center ms-auto" method="POST" action="{% url 'logout' %}">
           {% csrf_token %}
             <span class="me-3">Benvenuto {{ user.username }}</span>
-            <button class="btn btn-warning" type="submit">Logout</button>
+            <button class="btn btn-warning" type="submit"><i class="fa-solid fa-right-from-bracket me-1"></i>Logout</button>
         </form>
         {% endif %}
     </div>

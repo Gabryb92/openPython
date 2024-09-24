@@ -6,6 +6,7 @@ from myapp.authentication import GVMBackend
 from django.contrib.auth.decorators import login_required
 from myapp.utils.ssh_connection import execute_ssh_command
 from myapp.services.targets_service import get_data_targets, create_target
+from myapp.services.tasks_service import get_data_tasks
 import crypt
 
 
@@ -48,7 +49,8 @@ def dashboard_view(request):
 
 
 def tasks_view(request):
-    return render(request,'myapp/tasks.html')
+    tasks = get_data_tasks()
+    return render(request,'myapp/tasks.html', {'tasks':tasks})
 
 
 def hosts_view(request):
@@ -57,7 +59,9 @@ def hosts_view(request):
     #print(devices)
     return render(request,'myapp/hosts.html',{'devices': devices})
 
+'''
 
+Funziona
 def targets_view(request):
     if request.method == 'POST':
         # Salva il target nel DB
@@ -72,4 +76,32 @@ def targets_view(request):
         
     targets = get_data_targets()
     return render(request,'myapp/targets.html',{'targets':targets})
+'''
 
+
+def targets_view(request):
+    if request.method == 'POST':
+        selected_hosts = request.POST.getlist('selected_hosts')
+        mac_vendors = []
+        print(request.POST)
+        
+
+        # Per ogni IP selezionato, cerca il MAC Vendor corrispondente
+        for ip in selected_hosts:
+            mac_vendor = request.POST.get(f'mac_vendors_{ip}')
+            mac_vendors.append(mac_vendor)
+
+        # Crea una lista di tuple (IP, MAC Vendor)
+        devices = list(zip(selected_hosts, mac_vendors))
+
+        print("Selected Hosts:", selected_hosts)
+        print("MAC Vendors:", mac_vendors)
+        print("Devices (IP, MAC Vendor):", devices)
+
+        # Salva nel database
+        if selected_hosts:
+            for device in devices:
+                create_target(device[0], device[1])
+
+    targets = get_data_targets()
+    return render(request, 'myapp/targets.html', {'targets': targets})

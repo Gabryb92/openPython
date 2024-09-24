@@ -1,6 +1,8 @@
 #from myapp.authentication import GVMBackend
 from django.db import connection
-import datetime
+import datetime , time
+# import pytz
+# from datetime import datetime,time
 import uuid
 
 #Targets
@@ -31,14 +33,15 @@ def get_data_targets():
     return targets_dict
 
 def create_target(name,hosts):
-    target_uuid = str(uuid.uuid4())
     """
     Funzione che esegue una query SQL per inserire un nuovo target nel database
     """
+    target_uuid = str(uuid.uuid4())
+    creation_time = int(time.time()) + 7200
     with connection.cursor() as cursor:
         owner = 1
         query = """
-        INSERT INTO targets (uuid,owner,hosts,name)
-        VALUES (%s, %s ,%s , %s)
+        INSERT INTO targets (uuid,owner,hosts,name,creation_time,modification_time)
+        VALUES (%s, %s ,%s , %s, %s, %s)
         """
-        cursor.execute(query,[target_uuid,owner,name,hosts])
+        cursor.execute(query,[target_uuid,owner,name,hosts,creation_time,creation_time])
