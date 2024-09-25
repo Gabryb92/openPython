@@ -12,3 +12,13 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
             macVendorInput.disabled = true;   // Disabilita l'input hidden se la checkbox è deselezionata
         }
     }
+
+
+// Modale
+
+const myModal = document.getElementById('myModal')
+const myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', () => {
+  myInput.focus()
+})
