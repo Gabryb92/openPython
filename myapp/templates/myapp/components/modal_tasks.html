@@ -1,0 +1,197 @@
+<div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New Task</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex p-2 flex-column">
+          <div class="row mb-3">
+
+            <div class="col-2">
+              <label for="name">Name</label>
+            </div>
+
+            
+            <div class="col-10">
+              <input type="text" name="name" value="Unnamed">
+            </div>
+
+          </div>
+
+          <div class="row mb-3">
+              <div class="col-2">
+                <label for="name">Comment</label>
+              </div>
+              
+              <div class="col-10">
+                <input type="text" name="comment" value="">
+              </div>
+          </div>
+
+          <div class="row mb-3">
+
+            <div class="col-2">
+              <label for="scan_targets">Scan Targets</label>
+            </div>
+
+            <div class="col-10">
+              <select name="scan_targets" id="scan_targets">
+                <option value="">Test</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div class="row mb-3">
+
+            <div class="col-2">
+              <label for="alerts">Alerts</label>
+            </div>
+            
+            <div class="col-10">
+              <select name="alerts" id="alerts" value="disabled">
+                <option value=""></option>
+              </select>
+            </div>
+
+          </div>
+
+          <div class="row mb-3">
+
+            <div class="col-2">
+              <label for="schedule">Schedule</label>
+            </div>
+  
+            <div class="col-10">
+              <select name="schedule" id="schedule" value="disabled">
+                <option value=""></option>
+              </select>
+            </div>
+
+          </div>
+
+          <div class="row mb-3">
+            
+            <div class="col-2">
+              <label>Add result to Assets</label>
+            </div>
+  
+            <div class="col-10">
+              <input type="radio" name="result" id="" checked="checked"> <span> Yes</span> 
+              <input type="radio" name="result" id=""> <span> No</span>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            
+              <div class="col-2">
+                
+                <label>Apply Overrides</label>
+              </div>
+
+              <div class="col-10">
+                <input type="radio" name="overrides" id="" checked="checked"> <span>Yes</span>
+                <input type="radio" name="overrides" id=""> <span>No</span>
+
+              </div>
+
+
+          </div>
+        
+          <div class="row mb-3">
+
+            <div class="col-2">
+              <label for="min_qod">Min QoD</label>
+            </div>
+
+            <div class="col-10">
+              <input type="number" min="0" max="100" name="min_qod" size="4" value="70"><span>%</span>
+            </div>
+
+          </div>
+
+          <div class="row mb-3">
+
+            <div class="col-2">
+              <label>Alterable Task</label>
+            </div>
+
+            <div class="col-10">
+              <input type="radio" name="alterable" id=""> <span>Yes</span>
+              <input type="radio" name="alterable" id="" checked="checked"> <span>No</span>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+
+            <div class="col-2">
+              <label for="">Auto Delete Reports</label>
+            </div>
+
+            <div class="col-10">
+              <div class="d-block">
+                <input type="radio" name="" id="" checked="checked">
+                <label>Do not automatically delete reports</label>
+              </div>
+
+              <div class="d-block">
+                <input type="radio" name="" id="">
+                <label>Automatically delete oldest report but always keep newest</label>
+                <input type="number" name="auto_delete_data" min="2" max="1200" size="4" maxlenght="5" value="5">
+                <span>reports</span>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-2">
+              <label for="scanner">Scanner</label>
+            </div>
+
+            <div class="col-10">
+              <select name="scanner" id="scanner">
+                <option value="">Scan Test</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-2">
+              <label for="scan_config">Scan Config</label>
+            </div>
+
+            <div class="col-10">
+              <select name="scan_config" id="scan_config">
+                <option value="">Scan Test</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+
+            <div class="col-2">
+              <label for="">Older targets hosts</label>
+            </div>
+
+            <div class="col-10">
+              <select name="" id="">
+                <option value="sequential">Sequential</option>
+                <option value="random">Random</option>
+                <option value="reverse">Reverse</option>
+              </select>
+            </div>
+
+          </div>
+      </div>
+        
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Torna indietro</button>
+        <button type="button" class="btn btn-primary">Aggiungi</button>
+      </div>
+    </div>
+  </div>
+
+</div>
