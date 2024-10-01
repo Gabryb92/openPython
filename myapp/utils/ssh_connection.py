@@ -2,6 +2,14 @@ import paramiko
 import re
 import json
 
+
+#Vm Kali
+kali_ip='192.168.79.112'
+kali_username = "openvas"
+kali_password = "openvas"
+private_key_path = '/home/gabrieledev/.ssh/id_rsa'
+
+
 def get_main_interface_and_ip(ssh):
     """
     Ottiene l'interfaccia attiva e il suo indirizzo IP dalla VM remota.
@@ -102,3 +110,29 @@ def execute_ssh_command():
     
     return devices
 #execute_ssh_command()
+
+def create_ssh_connection():
+    '''
+    Funzione per creare una connessione SSH alla VM, restituisce un oggetto Paramiko SSHClient
+    '''
+    
+    ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    
+    try:
+        #Stabiliamo la connessione
+        ssh.connect(kali_ip,kali_username,private_key_path)
+        print("Connessione SSH stabilita")
+        return ssh
+    except Exception as e:
+        print(f"Errore durante la connessione SSH: {e}")
+        return None
+    
+def close_ssh_connection(ssh):
+    """
+    Funzione per chiudere la connessione SSH
+    """
+    
+    if ssh:
+        ssh.close()
+        print("Connessione SSH chiusa con successo")

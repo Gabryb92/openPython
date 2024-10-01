@@ -6,7 +6,8 @@ from myapp.authentication import GVMBackend
 from django.contrib.auth.decorators import login_required
 from myapp.utils.ssh_connection import execute_ssh_command
 from myapp.services.targets_service import get_data_targets, create_target
-from myapp.services.tasks_service import get_data_tasks
+from myapp.services.tasks_service import get_data_tasks, create_task
+#from myapp.services.gvm_service import get_scanners
 import crypt
 
 
@@ -49,8 +50,20 @@ def dashboard_view(request):
 
 
 def tasks_view(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        target = request.POST.get('target')
+        scanner = request.POST.get('scanner')
+        config = request.POST.get('config')
+        
+        
+        #Crea il task
+        create_task(name,target,scanner,config)
     tasks = get_data_tasks()
-    return render(request,'myapp/tasks.html', {'tasks':tasks})
+    targets = get_data_targets()
+    
+    # scanners = get_scanners()
+    return render(request,'myapp/tasks.html', {'tasks':tasks,'targets':targets})
 
 
 def hosts_view(request):

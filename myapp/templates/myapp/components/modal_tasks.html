@@ -6,9 +6,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <form action="{% url 'tasks' %}" method="POST">
+          {% csrf_token %}
         <div class="d-flex p-2 flex-column">
           <div class="row mb-3">
 
+            <!--Name-->
             <div class="col-2">
               <label for="name">Name</label>
             </div>
@@ -19,7 +22,7 @@
             </div>
 
           </div>
-
+            <!--Comment-->
           <div class="row mb-3">
               <div class="col-2">
                 <label for="name">Comment</label>
@@ -31,18 +34,22 @@
           </div>
 
           <div class="row mb-3">
-
+            <!--Scan Targets-->
             <div class="col-2">
               <label for="scan_targets">Scan Targets</label>
             </div>
 
             <div class="col-10">
               <select name="scan_targets" id="scan_targets">
-                <option value="">Test</option>
+                {% for target in targets %}
+                  <option value="{{target.id}}">{{target.name}}</option>
+                {% endfor %}
               </select>
             </div>
 
           </div>
+
+          
 
           <div class="row mb-3">
 
@@ -65,8 +72,8 @@
             </div>
   
             <div class="col-10">
-              <select name="schedule" id="schedule" value="disabled">
-                <option value=""></option>
+              <select name="schedule" id="schedule" value="">
+                <option value="0" checked="checked">No Schedule</option>
               </select>
             </div>
 
@@ -153,7 +160,8 @@
 
             <div class="col-10">
               <select name="scanner" id="scanner">
-                <option value="">Scan Test</option>
+                <option value="1">OpenVAS Default</option>
+                <option value="2">CVE</option>
               </select>
             </div>
           </div>
@@ -165,7 +173,7 @@
 
             <div class="col-10">
               <select name="scan_config" id="scan_config">
-                <option value="">Scan Test</option>
+                <option value="12">Full and Fast</option>
               </select>
             </div>
           </div>
@@ -188,9 +196,10 @@
       </div>
         
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Torna indietro</button>
-        <button type="button" class="btn btn-primary">Aggiungi</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-circle-arrow-left me-1"></i>Torna indietro</button>
+        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-circle-plus me-1"></i>Aggiungi</button>
       </div>
+    </form>
     </div>
   </div>
 

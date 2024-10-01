@@ -1,0 +1,29 @@
+-[ RECORD 10 ]------+-------------------------------------                          -[ RECORD 2 ]-------+-------------------------------------
+id                  | 79                                                            id                  | 80
+uuid                | c11cc83b-e63e-4451-863f-af2fd7757665                          uuid                | 731a5cb9-be58-4e88-85d6-07a2839b072b
+owner               | 1                                                             owner               | 1
+name                | test2                                                         name                | TestDjango
+hidden              | 0                                                             hidden              | 0
+comment             |                                                               comment             | 
+run_status          | 2                                                             run_status          | 
+start_time          |                                                               start_time          |
+end_time            |                                                               end_time            |
+config              | 0                                                             config              |
+target              | 27                                                            target              |
+schedule            | 0                                                             schedule            |
+schedule_next_time  | 0                                                             schedule_next_time  |
+schedule_periods    | 0                                                             schedule_periods    |
+scanner             | 2                                                             scanner             | 1
+config_location     | 0                                                             config_location     |
+target_location     | 0                                                             target_location     |
+schedule_location   | 0                                                             schedule_location   |
+scanner_location    | 0                                                             scanner_location    |                             
+upload_result_count |                                                               upload_result_count | 
+hosts_ordering      |                                                               hosts_ordering      |
+alterable           | 0                                                             alterable           |
+creation_time       | 1727344019                                                    creation_time       | 1727447176
+modification_time   | 1727344019                                                    modification_time   | 1727447176
+usage_type          | scan                                                          usage_type          | scan
+
+
+il 10 è corretto ed eseguito da openvas, il 2 è eseguito dalla mia interfaccia web

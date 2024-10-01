@@ -1,0 +1,38 @@
+-[ RECORD 10 ]------+-------------------------------------                          -[ RECORD 2 ]-------+-------------------------------------
+id                  | 79                                                            id                  | 80
+uuid                | c11cc83b-e63e-4451-863f-af2fd7757665                          uuid                | 731a5cb9-be58-4e88-85d6-07a2839b072b
+owner               | 1                                                             owner               | 1
+name                | test2                                                         name                | TestDjango
+hidden              | 0                                                             hidden              | 0
+comment             |                                                               comment             | 
+run_status          | 2                                                             run_status          | 
+start_time          |                                                               start_time          |
+end_time            |                                                               end_time            |
+config              | 0                                                             config              |
+target              | 27                                                            target              |
+schedule            | 0                                                             schedule            |
+schedule_next_time  | 0                                                             schedule_next_time  |
+schedule_periods    | 0                                                             schedule_periods    |
+scanner             | 2                                                             scanner             | 1
+config_location     | 0                                                             config_location     |
+target_location     | 0                                                             target_location     |
+schedule_location   | 0                                                             schedule_location   |
+scanner_location    | 0                                                             scanner_location    |                             
+upload_result_count |                                                               upload_result_count | 
+hosts_ordering      |                                                               hosts_ordering      |
+alterable           | 0                                                             alterable           |
+creation_time       | 1727344019                                                    creation_time       | 1727447176
+modification_time   | 1727344019                                                    modification_time   | 1727447176
+usage_type          | scan                                                          usage_type          | scan
+
+
+
+
+
+
+Scusami ma mancano un sacco di campi! sei sicuro di aver corretto tutto correttamente? nel form che ti ho inviato ci sono altri campi che non hai considerato! allora facciamo cosi, ti rifaccio fare tutto  e ti riscrivo bene di che cosa ho bisogno.
+
+Nella prima screen ho il record tasks inserito CORRETTAMENTE (perchè l'ho fatto da open vas) con tutti i campi che lui mette, nella seconda screen ho il record che ho inserito io tramite la mia interfaccia web e tramite il form che ho creato io copiato da openvas (guardando graficamente senza sapere i valori dei campi corretti), nel file request.txt c'è la richiesta POST che ho intercettato utilizzando burp creando un task direttamente dalla interfaccia web di openvas (non la mia). nel file modal_tasks.html c'è il mio form che ho creato (quello citato in precedenza), ora ho bisogno che tu basandoti sul record corretto del database e su quello non corretto e confrontandola con la richiesta POST che ho intercettato devi:
+
+sistemarmi il form che ho ti ho lasciato nel file model_tasks.html
+e scrivermi il codice per correggere la query che ho scritto io perchè il record deve essere con gli stessi campi anche dalla mia interfaccia web se no il record task non è visibile e utilizzabile ok?
