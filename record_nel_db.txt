@@ -26,4 +26,56 @@ modification_time   | 1727344019                                                
 usage_type          | scan                                                          usage_type          | scan
 
 
-il 10 è corretto ed eseguito da openvas, il 2 è eseguito dalla mia interfaccia web
+-[ RECORD 8 ]-------+-------------------------------------
+id                  | 82
+uuid                | 94b3d5da-fb3b-4fee-94fb-8136ffb38995
+owner               | 1
+name                | TestBurp
+hidden              | 0
+comment             | burp
+run_status          | 2
+start_time          | 
+end_time            | 
+config              | 12
+target              | 4
+schedule            | 0
+schedule_next_time  | 0
+schedule_periods    | 0
+scanner             | 1
+config_location     | 0
+target_location     | 0
+schedule_location   | 0
+scanner_location    | 0
+upload_result_count | 
+hosts_ordering      | sequential
+alterable           | 0
+creation_time       | 1727443356
+modification_time   | 1727443356
+usage_type          | scan
+
+-[ RECORD 11 ]------+-------------------------------------
+id                  | 83
+uuid                | c35df3af-2724-4d7d-87fc-5b313c63b127
+owner               | 1
+name                | TestDjango3
+hidden              | 0
+comment             | 
+run_status          | 
+start_time          | 
+end_time            | 
+config              | 
+target              | 
+schedule            | 0
+schedule_next_time  | 
+schedule_periods    | 
+scanner             | 1
+config_location     | 
+target_location     | 
+schedule_location   | 
+scanner_location    | 
+upload_result_count | 
+hosts_ordering      | sequential
+alterable           | 0
+creation_time       | 1727866230
+modification_time   | 1727866230
+usage_type          | scan

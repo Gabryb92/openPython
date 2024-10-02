@@ -15,7 +15,7 @@ def get_data_targets():
         
         for row in targets:
             target_data = {}
-            
+            target_data['id'] = row[0]
             target_data['name'] = row[3] if row[3] else 'Unknown' # Nome del target
             target_data['host'] = row[4] if row[4] else 'No Host' # Host non associato
             target_data['portLists'] = row[9] if len(row) > 9 and row[9] else 'No PortList'

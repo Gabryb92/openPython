@@ -52,7 +52,7 @@ def dashboard_view(request):
 def tasks_view(request):
     if request.method == 'POST':
         name = request.POST.get('name')
-        target = request.POST.get('target')
+        target = request.POST.get('scan_targets')
         scanner = request.POST.get('scanner')
         config = request.POST.get('config')
         
@@ -61,6 +61,7 @@ def tasks_view(request):
         create_task(name,target,scanner,config)
     tasks = get_data_tasks()
     targets = get_data_targets()
+    
     
     # scanners = get_scanners()
     return render(request,'myapp/tasks.html', {'tasks':tasks,'targets':targets})
