@@ -34,18 +34,36 @@ def get_data_tasks():
     return tasks_dict
 
 
-def create_task(name,target,scanner,config=12):
+# def create_task(name,target,scanner,config=12):
+#     """
+#     Crea un nuovo task di scansione e lo salva nel database
+#     """
+    
+#     creation_time=int(time.time()) + 7200
+#     target_uuid = str(uuid.uuid4()) 
+#     with connection.cursor() as cursor:
+#         owner=1
+#         hidden=0
+#         query = """
+#         INSERT INTO tasks(uuid,owner,name,hidden,target,scanner,config,creation_time)
+#         VALUES(%s,%s,%s,%s,%s,%s,%s,%s)
+#         """
+#         cursor.execute(query,[target_uuid,owner,name,hidden,target,scanner,config,creation_time])
+
+def create_task(name, target, scanner_id, config_id, alterable=0, hosts_ordering='sequential'):
     """
     Crea un nuovo task di scansione e lo salva nel database
     """
-    
-    creation_time=int(time.time()) + 7200
-    target_uuid = str(uuid.uuid4()) 
+    creation_time = int(time.time()) + 7200
+    target_uuid = str(uuid.uuid4())
+
     with connection.cursor() as cursor:
-        owner=1
-        hidden=0
+        owner = 1
+        hidden = 0
+        schedule = 0
         query = """
-        INSERT INTO tasks(uuid,owner,name,hidden,target,scanner,config,creation_time)
-        VALUES(%s,%s,%s,%s,%s,%s,%s,%s)
+        INSERT INTO tasks (uuid, owner, name, hidden, comment, target, schedule, config, scanner, hosts_ordering, 
+                        alterable, creation_time, modification_time, usage_type) 
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
-        cursor.execute(query,[target_uuid,owner,name,hidden,target,scanner,config,creation_time])
+        cursor.execute(query, [target_uuid, owner, name, hidden, '', target, schedule, config_id, scanner_id, hosts_ordering,alterable,creation_time, creation_time, 'scan'])

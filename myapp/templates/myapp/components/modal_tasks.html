@@ -33,8 +33,8 @@
               </div>
           </div>
 
+          <!--Scan Targets-->
           <div class="row mb-3">
-            <!--Scan Targets-->
             <div class="col-2">
               <label for="scan_targets">Scan Targets</label>
             </div>
@@ -50,7 +50,7 @@
           </div>
 
           
-
+          <!--Alerts-->
           <div class="row mb-3">
 
             <div class="col-2">
@@ -64,6 +64,7 @@
             </div>
 
           </div>
+          <!--Schedule-->
 
           <div class="row mb-3">
 
@@ -78,6 +79,7 @@
             </div>
 
           </div>
+          <!--Add result to Assets-->
 
           <div class="row mb-3">
             
@@ -90,7 +92,7 @@
               <input type="radio" name="result" id=""> <span> No</span>
             </div>
           </div>
-
+          <!--Apply Overrides-->
           <div class="row mb-3">
             
               <div class="col-2">
@@ -106,7 +108,7 @@
 
 
           </div>
-        
+          <!--Miny QoD-->
           <div class="row mb-3">
 
             <div class="col-2">
@@ -118,7 +120,7 @@
             </div>
 
           </div>
-
+          <!--Alterable Task-->
           <div class="row mb-3">
 
             <div class="col-2">
@@ -130,7 +132,7 @@
               <input type="radio" name="alterable" id="" checked="checked"> <span>No</span>
             </div>
           </div>
-
+          <!--Auto Delete Reports-->
           <div class="row mb-3">
 
             <div class="col-2">
@@ -152,7 +154,7 @@
 
             </div>
           </div>
-
+          <!--Scanner-->
           <div class="row mb-3">
             <div class="col-2">
               <label for="scanner">Scanner</label>
@@ -165,7 +167,7 @@
               </select>
             </div>
           </div>
-
+          <!--Scan Config-->
           <div class="row mb-3">
             <div class="col-2">
               <label for="scan_config">Scan Config</label>
@@ -177,7 +179,7 @@
               </select>
             </div>
           </div>
-
+          <!--Order for Target Hosts-->
           <div class="row mb-3">
 
             <div class="col-2">
@@ -194,6 +196,27 @@
 
           </div>
       </div>
+
+      <!-- Max Checks -->
+          <div class="row mb-3">
+            <div class="col-2">
+              <label for="max_checks">Max Checks per Host</label>
+            </div>
+            <div class="col-10">
+              <input type="number" name="max_checks" value="4">
+            </div>
+          </div>
+
+          <!-- Max Hosts -->
+          <div class="row mb-3">
+            <div class="col-2">
+              <label for="max_hosts">Max Hosts</label>
+            </div>
+            <div class="col-10">
+              <input type="number" name="max_hosts" value="20">
+            </div>
+          </div>
+        </div>
         
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-circle-arrow-left me-1"></i>Torna indietro</button>
