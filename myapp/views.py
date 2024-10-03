@@ -111,11 +111,34 @@ def targets_view(request):
         print("Selected Hosts:", selected_hosts)
         print("MAC Vendors:", mac_vendors)
         print("Devices (IP, MAC Vendor):", devices)
+        
+        # Recupera i campi aggiuntivi dalla modale
+        allow_simultaneous_ips = request.POST.get('allow_simultaneous_ips')
+        port_list = request.POST.get('port_list')
+        alive_test = request.POST.get('alive_test')
+        reverse_lookup_only = request.POST.get('reverse_lookup_only')
+        reverse_lookup_unify = request.POST.get('reverse_lookup_unify')
+        comment = request.POST.get('comment')
+        exclude_hosts = request.POST.get('exclude_hosts')
+        
 
         # Salva nel database
         if selected_hosts:
             for device in devices:
-                create_target(device[0], device[1])
+                try:
+                    create_target(name=device[1],
+                                hosts=device[0],
+                                allow_simultaneous_ips=allow_simultaneous_ips,
+                                port_list=port_list,
+                                alive_test=alive_test,
+                                reverse_lookup_only=reverse_lookup_only,
+                                reverse_lookup_unify=reverse_lookup_unify,
+                                comment=comment,
+                                exclude_hosts=exclude_hosts
+                                )
+                    print(f"Target {device[0]}aggiunto correttamente")
+                except Exception as e:
+                    print(f"Errore durante l'aggiunta del target {device[0]}: {e}")
 
     targets = get_data_targets()
     return render(request, 'myapp/targets.html', {'targets': targets})

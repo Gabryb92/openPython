@@ -1,0 +1,214 @@
+<div id="addTargetsModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New Target</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body font-modal-hosts">
+        <!--<form action="{% url 'targets' %}" method="POST">
+          {% csrf_token %} -->
+          
+        <div class="d-flex p-2 flex-column">
+          <div class="row mb-3">
+
+            <!--Name-->
+            <div class="col-2">
+              <label for="name">Name</label>
+            </div>
+
+            
+            <div class="col-10">
+              <input type="text" name="name" value="Unnamed" class="">
+            </div>
+
+          </div>
+            <!--Comment-->
+          <div class="row mb-3">
+              <div class="col-2">
+                <label for="comment">Comment</label>
+              </div>
+              
+              <div class="col-10">
+                <input type="text" name="comment" value="">
+              </div>
+          </div>
+
+          {% comment %} <!--Hosts-->
+          <div class="row mb-3">
+            <div class="col-2">
+              <label for="hosts">Hosts</label>
+            </div>
+
+            <div class="col-10">
+              <span>Manual</span> <input type="text"name="hosts">
+            </div>
+          </div> {% endcomment %}
+
+          <!--Exclude Hosts-->
+          <div class="row mb-3">
+            <div class="col-2">
+              <label for="exclude_hosts">Exclude Hosts</label>
+            </div>
+            <div class="col-10">
+              <span>Manual</span> <input type="text"name="exclude_hosts">
+            </div>
+          </div>
+
+          
+          <!--Allow simulations-->
+          <div class="row mb-3">
+
+            <div class="col-2">
+              <label for="allow_simultaneous_ips">Allow Simulations scanning via Multiple IPs</label>
+            </div>
+            
+            <div class="col-10">
+              <input type="radio" name="allow_simultaneous_ips" value="1" id="" class="me-1" checked="checked"><span>Yes</span> <span>No</span><input type="radio" name="allow_simultaneous_ips" value="0" id=""class="ms-1"> 
+            </div>
+
+          </div>
+          
+          <!--Port Lists-->
+          <div class="row mb-3">
+
+            <div class="col-2">
+              <label for="port_list">Port List</label>
+            </div>
+  
+            <div class="col-10">
+              <select name="port_list" id="port_list">
+                <option value="1">All TCP and Nmap top 100 UDP</option>
+                <option value="2" checked="checked">All IANA assigned TCP</option>
+                <option value="3">All IANA assigned TCP and UDP</option>
+              </select>
+            </div>
+
+          </div>
+
+          <!--Alive Test-->
+          <div class="row mb-3">
+
+            <div class="col-2">
+              <label for="alive_test">Alive Test</label>
+            </div>
+  
+            <div class="col-10">
+              <select name="alive_test" id="schedule" value="">
+                <option value="0" checked="checked">Scan Config Default</option>
+                <option value="2">ICMP Ping</option>
+                <option value="1">TCP-ACK Service Ping</option>
+                <option value="16">TCP-SYN Service Ping</option>
+                <option value="4">ARP Ping</option>
+                <option value="3">ICMP &amp; TCP-ACK Service Ping</option>
+                <option value="6">ICMP &amp; ARP Ping</option>
+                <option value="5">TCP-ACK Service &arp; ARP Ping</option>
+                <option value="7">ICMP, TCP-ACK Service &amp; ARP Ping</option>
+                <option value="8">Consider Alive</option>
+              </select>
+            </div>
+
+          </div>
+          
+          <!--Credentials for authenticated checks-->
+          <div class="row mb-3">
+            
+              <div class="col-8">
+                <h4>Credentials for authenticated checks</h4>
+              </div>
+
+
+
+          </div>
+          <!--SSH-->
+          <div class="row mb-3">
+
+            <div class="col-2">
+              <label for="ssh">SSH</label>
+            </div>
+
+            <div class="col-10">
+              <select name="ssh" id="">
+                <option value=""></option>
+              </select> <span>on port</span> <input type="number" value="22">
+            </div>
+
+          </div>
+
+          <!--SMB-->
+          <div class="row mb-3">
+
+            <div class="col-2">
+              <label for="smb">SMB</label>
+            </div>
+
+            <div class="col-10">
+              <select name="smb" id="">
+                <option value=""></option>
+              </select>
+            </div>
+          </div>
+
+            <!--esxi-->
+          <div class="row mb-3">
+
+            <div class="col-2">
+              <label for="esxi">ESXi</label>
+            </div>
+
+            <div class="col-10">
+              <select name="esxi" id="">
+                <option value=""></option>
+              </select>
+            </div>
+          </div>
+
+            <!--snmp-->
+          <div class="row mb-3">
+
+            <div class="col-2">
+              <label for="snmp">SNMP</label>
+            </div>
+
+            <div class="col-10">
+              <select name="snmp" id="">
+                <option value=""></option>
+              </select>
+            </div>
+
+          </div>
+          <!--Reverse Lookup Only-->
+          <div class="row mb-3">
+
+            <div class="col-2">
+              <label for="reverse_lookup_only">Reverse Lookup Only</label>
+            </div>
+            
+            <div class="col-10">
+              <input type="radio" name="reverse_lookup_only" id="" class="me-1" value="1"><span>Yes</span> <span>No</span><input type="radio" name="reverse_lookup_only" id="" checked="checked" class="ms-1" value="0"> 
+            </div>
+
+          </div>
+
+          <!--Reverse Lookup unify-->
+          <div class="row mb-3">
+
+            <div class="col-2">
+              <label for="reverse_lookup_unify">Reverse Lookup unify</label>
+            </div>
+            
+            <div class="col-10">
+              <input type="radio" name="reverse_lookup_unify" id=""class="me-1" value="1"><span>Yes</span> <span>No</span><input type="radio" name="reverse_lookup_unify" id="" checked="checked"class="ms-1" value="0"> 
+            </div>
+
+          </div>
+        
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-circle-arrow-left me-1"></i>Torna indietro</button>
+        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-circle-plus me-1"></i>Aggiungi</button>
+      </div>
+    </div>
+  </div>
+  
+</div>
+</form>

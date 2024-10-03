@@ -7,3 +7,19 @@ a.text-dark:hover i {
     transform: scale(1.2); /* Aumenta leggermente la dimensione per l'effetto */
     transition: all 0.3s ease; /* Animazione fluida per l'hover */
 }
+
+.font-modal-hosts{
+  font-size: 0.85rem;
+}
+
+/* Per Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Per Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}

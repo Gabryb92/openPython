@@ -5,41 +5,52 @@
 <div class="container-fluid">
     <button class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa-solid fa-circle-plus me-1"></i>Add a Task</button>
 </div>
-<div class="">
-    <table class="table table-hover m-1">
-        <thead>
-            <tr>
-                <th scope="col">Nome</th>
-                <th scope="col">Status</th>
-                <th scope="col">Reports</th>
-                <th scope="col">Ultimo Scan</th>
-                <th scope="col">Azioni</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for task in tasks %}
-            <tr>
-                
-                <td>{{task.name}}</td>
-                <td>{{task.run_status}}</td>
-                <td>{{task.scanner}}</td>
-                {%if task.end_time != 'Data non disponibile' %}
-                    <td>{{task.end_time|date:"d/m/Y H:i"}}</td>
-                {% else %}
-                    <td>{{task.end_time}}</td>
-                {% endif %}
-                <td class="">
-                    <a href="" class="text-dark text-decoration-none pe-1" data-bs-toggle="tooltip" title="Elimina"><i class="fa-solid fa-trash"></i></a>
-                    <a href="" class="text-dark text-decoration-none" data-bs-toggle="tooltip" title="Modifica"><i class="fa-solid fa-file-pen"></i></a>
-                    <a href="" class="text-dark text-decoration-none pe-1"data-bs-toggle="tooltip" title="Copia"><i class="fa-solid fa-clone"></i></a>
-                    <a href="" class="text-dark text-decoration-none" data-bs-toggle="tooltip" title="Esporta"><i class="fa-solid fa-file-export"></i></a>
-                    
-            </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+{% if not tasks  %}
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="justify-content-center col-12 col-md-8 alert alert-warning mt-5" role="alert">
+            Non ci sono task disponibili al momento.
+        </div>
+    </div>
 </div>
+
+{% else %}
+    <div class="">
+        <table class="table table-hover m-1">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Reports</th>
+                    <th scope="col">Ultimo Scan</th>
+                    <th scope="col">Azioni</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    
+                    <td>{{task.name}}</td>
+                    <td>{{task.run_status}}</td>
+                    <td>{{task.scanner}}</td>
+                    {%if task.end_time != 'Data non disponibile' %}
+                        <td>{{task.end_time|date:"d/m/Y H:i"}}</td>
+                    {% else %}
+                        <td>{{task.end_time}}</td>
+                    {% endif %}
+                    <td class="">
+                        <a href="" class="text-dark text-decoration-none pe-1" data-bs-toggle="tooltip" title="Elimina"><i class="fa-solid fa-trash"></i></a>
+                        <a href="" class="text-dark text-decoration-none" data-bs-toggle="tooltip" title="Modifica"><i class="fa-solid fa-file-pen"></i></a>
+                        <a href="" class="text-dark text-decoration-none pe-1"data-bs-toggle="tooltip" title="Copia"><i class="fa-solid fa-clone"></i></a>
+                        <a href="" class="text-dark text-decoration-none" data-bs-toggle="tooltip" title="Esporta"><i class="fa-solid fa-file-export"></i></a>
+                        
+                </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
 {% include "myapp/components/modal_tasks.html" %}
 {% endblock %}
 

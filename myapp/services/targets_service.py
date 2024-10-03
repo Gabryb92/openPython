@@ -32,7 +32,7 @@ def get_data_targets():
             targets_dict.append(target_data)
     return targets_dict
 
-def create_target(name,hosts):
+def create_target(name,hosts,allow_simultaneous_ips,port_list,alive_test,reverse_lookup_only,reverse_lookup_unify,comment="",exclude_hosts="",):
     """
     Funzione che esegue una query SQL per inserire un nuovo target nel database
     """
@@ -41,7 +41,7 @@ def create_target(name,hosts):
     with connection.cursor() as cursor:
         owner = 1
         query = """
-        INSERT INTO targets (uuid,owner,hosts,name,creation_time,modification_time)
-        VALUES (%s, %s ,%s , %s, %s, %s)
+        INSERT INTO targets (uuid,owner,hosts,name,allow_simultaneous_ips,port_list,alive_test,reverse_lookup_only,reverse_lookup_unify,comment,exclude_hosts,creation_time,modification_time)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
-        cursor.execute(query,[target_uuid,owner,name,hosts,creation_time,creation_time])
+        cursor.execute(query,[target_uuid, owner, hosts, name, allow_simultaneous_ips, port_list, alive_test, reverse_lookup_only, reverse_lookup_unify, comment, exclude_hosts, creation_time, creation_time])

@@ -14,6 +14,7 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
     }
 
 
+
 // Modale
 
 const myModal = document.getElementById('myModal')
@@ -22,3 +23,5 @@ const myInput = document.getElementById('myInput')
 myModal.addEventListener('shown.bs.modal', () => {
   myInput.focus()
 })
+
+
