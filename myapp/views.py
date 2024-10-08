@@ -2,8 +2,10 @@ from django.shortcuts import render,redirect
 from django.db import connection
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from myapp.authentication import GVMBackend
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.core.paginator import Paginator
+from myapp.authentication import GVMBackend
 from myapp.utils.ssh_connection import execute_ssh_command
 from myapp.services.targets_service import get_data_targets, create_target
 from myapp.services.tasks_service import get_data_tasks, create_task
@@ -67,11 +69,20 @@ def tasks_view(request):
     return render(request,'myapp/tasks.html', {'tasks':tasks,'targets':targets})
 
 
+def get_hosts(request):
+    if request.method == "GET":
+        devices = execute_ssh_command()
+        
+        
+        return JsonResponse({'devices':devices})
+
+
+
 def hosts_view(request):
     #Prendo gli hosts da netdiscover
-    devices = execute_ssh_command()
+    #devices = execute_ssh_command()
     #print(devices)
-    return render(request,'myapp/hosts.html',{'devices': devices})
+    return render(request,'myapp/hosts.html')
 
 '''
 
@@ -108,9 +119,9 @@ def targets_view(request):
         # Crea una lista di tuple (IP, MAC Vendor)
         devices = list(zip(selected_hosts, mac_vendors))
 
-        print("Selected Hosts:", selected_hosts)
-        print("MAC Vendors:", mac_vendors)
-        print("Devices (IP, MAC Vendor):", devices)
+        # print("Selected Hosts:", selected_hosts)
+        # print("MAC Vendors:", mac_vendors)
+        # print("Devices (IP, MAC Vendor):", devices)
         
         # Recupera i campi aggiuntivi dalla modale
         allow_simultaneous_ips = request.POST.get('allow_simultaneous_ips')
@@ -126,17 +137,18 @@ def targets_view(request):
         if selected_hosts:
             for device in devices:
                 try:
-                    create_target(name=device[1],
-                                hosts=device[0],
-                                allow_simultaneous_ips=allow_simultaneous_ips,
-                                port_list=port_list,
-                                alive_test=alive_test,
-                                reverse_lookup_only=reverse_lookup_only,
-                                reverse_lookup_unify=reverse_lookup_unify,
-                                comment=comment,
-                                exclude_hosts=exclude_hosts
+                    create_target(
+                                    name=device[1],
+                                    hosts=device[0],
+                                    allow_simultaneous_ips=allow_simultaneous_ips,
+                                    port_list=port_list,
+                                    alive_test=alive_test,
+                                    reverse_lookup_only=reverse_lookup_only,
+                                    reverse_lookup_unify=reverse_lookup_unify,
+                                    comment=comment,
+                                    exclude_hosts=exclude_hosts
                                 )
-                    print(f"Target {device[0]}aggiunto correttamente")
+                    # print(f"Target {device[0]}aggiunto correttamente")
                 except Exception as e:
                     print(f"Errore durante l'aggiunta del target {device[0]}: {e}")
 

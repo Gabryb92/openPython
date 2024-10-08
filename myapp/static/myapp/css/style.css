@@ -23,3 +23,41 @@ input[type=number]::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
 }
+
+.table-container {
+    min-height: 400px; /* Regola l'altezza in base alle tue necessità */
+}
+
+#loading-spinner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.7);
+      z-index: 1000;
+  }
+
+  .spinner {
+      border: 6px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 6px solid #3498db;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+  }
+
+
+  .page-active {
+    background-color: #0d6efd; /* Colore simile all'active di Bootstrap */
+    color: #fff;
+    border-color: #0d6efd;
+}

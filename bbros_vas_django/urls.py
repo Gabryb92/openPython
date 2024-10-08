@@ -26,6 +26,7 @@ urlpatterns = [
     path('dashboard/',login_required(views.dashboard_view),name='dashboard'),
     path('tasks/',login_required(views.tasks_view),name='tasks'),
     path('hosts/',login_required(views.hosts_view),name='hosts'),
+    path('get_hosts/',login_required(views.get_hosts)),
     path('targets/',login_required(views.targets_view),name='targets'),
     
     

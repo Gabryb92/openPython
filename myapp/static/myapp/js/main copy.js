@@ -1,4 +1,4 @@
-//console.log("JavaScript file loaded correttamente.");
+console.log("JavaScript file loaded correttamente.");
 
 
 //Attivo i tooltips
@@ -43,7 +43,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 let allHosts = [];  // Variabile globale per memorizzare tutti gli host
-let currentPage = 1;  // Variabile globale per tenere traccia della pagina corrente
 
 function fetchHosts(showSpinner = false) {
     if (showSpinner) {
@@ -65,16 +64,13 @@ function fetchHosts(showSpinner = false) {
         });
 }
 
-
 function renderPage(page) {
     const itemsPerPage = 10;
     const start = (page - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const hostsToDisplay = allHosts.slice(start, end);
 
-    currentPage = page;  // Aggiorna la pagina corrente
-    renderHosts(hostsToDisplay);  // Visualizza solo gli host della pagina
-    setupPagination(Math.ceil(allHosts.length / 10), page);  // Ricarica i pulsanti di paginazione
+    renderHosts(hostsToDisplay);  // Usa la funzione per visualizzare solo gli host della pagina
 }
 
 
@@ -99,25 +95,73 @@ function renderHosts(devices) {
     });
 }
 
+// Funzione per creare i pulsanti di navigazione
 
+function setupPagination(totalPages, currentPage) {
+    const paginationContainer = document.getElementById("pagination");
+    paginationContainer.innerHTML = "";
+
+    // Bottone per pagina precedente
+    if (currentPage > 1) {
+        const prevButton = document.createElement("button");
+        prevButton.innerHTML = "&laquo;";  // Freccia sinistra
+        prevButton.classList.add("page-link");
+        prevButton.type = "button";
+        prevButton.addEventListener("click", () => renderPage(currentPage - 1));
+        
+        const prevItem = document.createElement("li");
+        prevItem.classList.add("page-item");
+        prevItem.appendChild(prevButton);
+        paginationContainer.appendChild(prevItem);
+    }
+
+    //Pagine numerate
+    for (let i = 1; i <= totalPages; i++) {
+        const button = document.createElement("button");
+        button.innerText = i;
+        button.classList.add("page-link");
+        button.type = "button"
+        if (i === currentPage) button.classList.add("active");
+
+        button.addEventListener("click", () => renderPage(i));  // Passa solo la pagina
+        const listItem = document.createElement("li");
+        listItem.classList.add("page-item");
+        listItem.appendChild(button);
+        paginationContainer.appendChild(listItem);
+        // paginationContainer.appendChild(button);
+    }
+
+    if (currentPage < totalPages) {
+        const nextButton = document.createElement("button");
+        nextButton.innerHTML = "&raquo;";  // Freccia destra
+        nextButton.classList.add("page-link");
+        nextButton.type = "button";
+        nextButton.addEventListener("click", () => renderPage(currentPage + 1));
+        
+        const nextItem = document.createElement("li");
+        nextItem.classList.add("page-item");
+        nextItem.appendChild(nextButton);
+        paginationContainer.appendChild(nextItem);
+    }
+}
 
 /*
+// Funzione per creare i pulsanti di navigazione con frecce
 function setupPagination(totalPages, currentPage) {
     const paginationContainer = document.getElementById("pagination");
     paginationContainer.innerHTML = "";
 
-    // Bottone per pagina precedente
+    // Bottone per pagina precedente (disabilitato se siamo alla prima pagina)
     const prevItem = document.createElement("li");
     prevItem.classList.add("page-item");
     if (currentPage === 1) prevItem.classList.add("disabled");
 
     const prevButton = document.createElement("button");
-    prevButton.innerHTML = "&laquo;";  // Freccia sinistra
+    prevButton.innerHTML = "&laquo;"; // Freccia sinistra
     prevButton.classList.add("page-link");
-    prevButton.classList.add("rounded-circle");
     prevButton.type = "button";
     prevButton.addEventListener("click", () => {
-        if (currentPage > 1) renderPage(currentPage - 1);
+        if (currentPage > 1) renderPage(currentPage - 1); // Vai alla pagina precedente
     });
     prevItem.appendChild(prevButton);
     paginationContainer.appendChild(prevItem);
@@ -132,97 +176,28 @@ function setupPagination(totalPages, currentPage) {
         button.classList.add("page-link");
         button.classList.add("rounded-circle");
         button.type = "button";
-        
-        // Aggiungi la classe active alla pagina corrente
-        if (i === currentPage) {
-            button.classList.add("active");
-            button.setAttribute("aria-current", "page");
-        }
+        if (i === currentPage) button.classList.add("active");
 
-        button.addEventListener("click", () => {
-            renderPage(i);
-        });
-
+        button.addEventListener("click", () => renderPage(i));
         listItem.appendChild(button);
         paginationContainer.appendChild(listItem);
     }
 
-    // Bottone per pagina successiva
+    // Bottone per pagina successiva (disabilitato se siamo all'ultima pagina)
     const nextItem = document.createElement("li");
     nextItem.classList.add("page-item");
     if (currentPage === totalPages) nextItem.classList.add("disabled");
 
     const nextButton = document.createElement("button");
-    nextButton.innerHTML = "&raquo;";  // Freccia destra
+    nextButton.innerHTML = "&raquo;"; // Freccia destra
     nextButton.classList.add("page-link");
-    nextButton.classList.add("rounded-circle");
     nextButton.type = "button";
     nextButton.addEventListener("click", () => {
-        if (currentPage < totalPages) renderPage(currentPage + 1);
-    });
-    nextItem.appendChild(nextButton);
-    paginationContainer.appendChild(nextItem);
-}*/
-
-function setupPagination(totalPages, currentPage) {
-    const paginationContainer = document.getElementById("pagination");
-    paginationContainer.innerHTML = "";
-
-    // Bottone per pagina precedente
-    const prevItem = document.createElement("li");
-    prevItem.classList.add("page-item");
-    if (currentPage === 1) prevItem.classList.add("disabled");
-
-    const prevButton = document.createElement("button");
-    prevButton.innerHTML = "&laquo;";  // Freccia sinistra
-    prevButton.classList.add("page-link");
-    prevButton.classList.add("rounded-circle");
-    prevButton.type = "button";
-    prevButton.addEventListener("click", () => {
-        if (currentPage > 1) renderPage(currentPage - 1);
-    });
-    prevItem.appendChild(prevButton);
-    paginationContainer.appendChild(prevItem);
-
-    // Pagine numerate
-    for (let i = 1; i <= totalPages; i++) {
-        const listItem = document.createElement("li");
-        listItem.classList.add("page-item");
-
-        const button = document.createElement("button");
-        button.innerText = i;
-        button.classList.add("page-link");
-        button.classList.add("rounded-circle");
-        button.type = "button";
-        
-        // Applica la classe page-active alla pagina corrente
-        if (i === currentPage) {
-            button.classList.add("page-active");
-            button.setAttribute("aria-current", "page");
-        }
-
-        button.addEventListener("click", () => {
-            renderPage(i);
-        });
-
-        listItem.appendChild(button);
-        paginationContainer.appendChild(listItem);
-    }
-
-    // Bottone per pagina successiva
-    const nextItem = document.createElement("li");
-    nextItem.classList.add("page-item");
-    if (currentPage === totalPages) nextItem.classList.add("disabled");
-
-    const nextButton = document.createElement("button");
-    nextButton.innerHTML = "&raquo;";  // Freccia destra
-    nextButton.classList.add("page-link");
-    nextButton.classList.add("rounded-circle");
-    nextButton.type = "button";
-    nextButton.addEventListener("click", () => {
-        if (currentPage < totalPages) renderPage(currentPage + 1);
+        if (currentPage < totalPages) renderPage(currentPage + 1); // Vai alla pagina successiva
     });
     nextItem.appendChild(nextButton);
     paginationContainer.appendChild(nextItem);
 }
+*/
+
 

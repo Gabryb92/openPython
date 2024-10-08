@@ -2,13 +2,21 @@
 {% block title %}Hosts{% endblock %}
 {% block content %}
 
+<div id="loading-spinner" style="display: none;">
+    <div class="spinner"></div>
+</div>
 
 
 <div class="container-fluid">
-    <a href="{% url 'hosts' %}" class="btn btn-primary me-2"><i class="fa-solid fa-network-wired"></i> Run Netdiscover</a>
+    <button onclick="fetchHosts()" class="btn btn-primary me-2"><i class="fa-solid fa-network-wired"></i> Run Netdiscover</button>
     <button data-bs-toggle="modal" data-bs-target="#addTargetsModal" type="submit" class="btn btn-success"><i class="fa-solid fa-circle-plus me-1"></i>Aggiungi a Targets</button>
+
+    {% comment %} <button onclick="fetchHosts()" class="btn btn-success"><i class="fa-solid fa-circle-plus me-1"></i>Carica</button> {% endcomment %}
 </div>
-<form action="{% url 'targets' %}" method="post">
+<div class="table-container">
+
+
+<form action="{% url 'targets' %}" method="post" >
     {% csrf_token %}
     <table class="table table-hover m-1">
         <thead>
@@ -19,7 +27,8 @@
                 <th scope="col">MAC Vendor</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="hosts-table-body">
+            <!--
             {% for device in devices %}
             <tr>
                 <th scope="row">
@@ -32,11 +41,18 @@
                 <td><i class="fa-solid fa-building me-1"> </i>{{device.MAC_Vendor}}</td>
             </tr>
             {% endfor %}
+            -->
         </tbody>
     </table>
 <!--</form>-->
 
-
+<div  class="d-flex justify-content-center  mt-3">
+    <ul aria-label="Page navigation" class="pagination justify-content-center d-flex gap-2" id="pagination"></ul>
+</div>
+</div>
 {% include "myapp/components/modal_hosts.html" %}
 
+
 {% endblock %}
+
+
