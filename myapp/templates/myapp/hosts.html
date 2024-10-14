@@ -8,15 +8,30 @@
 
 
 <div class="container-fluid">
-    <button onclick="fetchHosts()" class="btn btn-primary me-2"><i class="fa-solid fa-network-wired"></i> Run Netdiscover</button>
-    <button data-bs-toggle="modal" data-bs-target="#addTargetsModal" type="submit" class="btn btn-success"><i class="fa-solid fa-circle-plus me-1"></i>Aggiungi a Targets</button>
+    <button onclick="fetchHosts(true)" class="btn btn-primary me-2"><i class="fa-solid fa-network-wired"></i> Run Netdiscover</button>
+    <div 
+    class="d-inline"
+    id="tooltipContainer"
+    data-bs-toggle="tooltip"
+    title="Seleziona almeno un host per proseguire" 
+    >
+    <button 
+    id="addTargetsBtn"
+    data-bs-toggle="modal" 
+    data-bs-target="#addTargetsModal" 
+    type="submit" 
+    class="btn btn-success"
+    disabled>
+    <i class="fa-solid fa-circle-plus me-1"></i>Aggiungi a Targets
+</button>
+</div>
 
     {% comment %} <button onclick="fetchHosts()" class="btn btn-success"><i class="fa-solid fa-circle-plus me-1"></i>Carica</button> {% endcomment %}
 </div>
-<div class="table-container">
+<div >
 
 
-<form action="{% url 'targets' %}" method="post" >
+<form action="{% url 'targets' %}" method="post" class="table-container">
     {% csrf_token %}
     <table class="table table-hover m-1">
         <thead>
@@ -46,12 +61,18 @@
     </table>
 <!--</form>-->
 
+
+</div>
+
 <div  class="d-flex justify-content-center  mt-3">
     <ul aria-label="Page navigation" class="pagination justify-content-center d-flex gap-2" id="pagination"></ul>
 </div>
-</div>
 {% include "myapp/components/modal_hosts.html" %}
 
+<!--Div che indica che bisogna aggiungere un target-->
+<div id="title" class="alert alert-warning mt-3" style="display: none;">
+    Seleziona almeno un host prima di aggiungere a Targets.
+</div>
 
 {% endblock %}
 

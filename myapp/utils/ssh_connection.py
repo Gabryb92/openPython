@@ -85,7 +85,7 @@ def execute_netdiscover(ssh,interface,ipcalc):
 
 def execute_ssh_command():
     # Impostazioni della connessione SSH
-    hostname = '192.168.79.112'
+    hostname = '192.168.79.113'
     username = 'openvas'
     private_key_path = '/home/gabrieledev/.ssh/id_rsa'
 
