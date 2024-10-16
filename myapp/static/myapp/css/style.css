@@ -28,6 +28,49 @@ input[type=number] {
     min-height: 450px; /* Regola l'altezza in base alle tue necessità */
 }
 
+/* .alert {
+    transition: opacity 0.5s ease, max-height 0.5s ease;
+    max-height: 500px;
+    overflow: hidden;
+}
+
+.alert-hide{
+    opacity: 0;
+    max-height: 0;
+} */
+
+.toast-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    z-index: 1050;
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translate(-50%, 0); /* Mantiene il messaggio centrato */
+    max-width: 300px;
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Classe per mostrare il toast */
+.toast-show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.toast-success {
+    background-color: #28a745; /* Verde */
+    border: 1px solid #218838;
+}
+
+.toast-error {
+    background-color: #dc3545; /* Rosso */
+    border: 1px solid #c82333;
+}
+
+
 #loading-spinner {
       display: flex;
       justify-content: center;

@@ -1,0 +1,12 @@
+<div class="container text-center">
+    {% if messages %}
+        {% for message in messages %}
+            <div id="toast" class="toast-container toast-{{message.tags}} alert alert-{{ message.tags }}" role="alert">
+                {{message}}
+            </div>
+            {% comment %} <div class="toast-container" id="toast">
+                {{message}}
+            </div> {% endcomment %}
+        {% endfor %}
+    {% endif %}
+</div>

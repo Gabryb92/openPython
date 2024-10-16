@@ -2,6 +2,9 @@
 {% block title %}Tasks{% endblock %}
 
 {% block content %}
+{% include "myapp/components/messages.html" %}
+
+
 <div class="container-fluid">
     <button class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa-solid fa-circle-plus me-1"></i>Add a Task</button>
 </div>
@@ -52,6 +55,7 @@
     </div>
 {% endif %}
 {% include "myapp/components/modal_tasks.html" %}
+
 {% endblock %}
 
 

@@ -1,6 +1,8 @@
 {% extends "myapp/base.html" %} 
 {% block title %}Hosts{% endblock %}
 {% block content %}
+{% include "myapp/components/messages.html" %}
+
 
 <div id="loading-spinner" style="display: none;">
     <div class="spinner"></div>

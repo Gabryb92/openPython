@@ -58,9 +58,14 @@ def tasks_view(request):
         scanner = request.POST.get('scanner')
         config = request.POST.get('config')
         
-        
-        #Crea il task
-        create_task(name,target,scanner,config)
+        try:
+            #Crea il task
+            create_task(name,target,scanner,config)
+            messages.success(request,"Task aggiunto con successo!")
+        except Exception as e:
+            #Se c'è un errore, aggiungi un messaggio di errore
+            messages.error(request,f"Errore durante l'aggiunta del task :{e}")
+            
     tasks = get_data_tasks()
     targets = get_data_targets()
     
@@ -84,31 +89,47 @@ def hosts_view(request):
     #print(devices)
     return render(request,'myapp/hosts.html')
 
-'''
 
-Funziona
+
+
 def targets_view(request):
     if request.method == 'POST':
-        # Salva il target nel DB
-        selected_hosts = request.POST.getlist('selected_hosts')  # Prendi tutti gli host selezionati
-        mac_vendors = request.POST.getlist('name')  # Prendi tutti i nomi (o MAC Vendor)
-        print(selected_hosts,mac_vendors)
-        devices = list(zip(selected_hosts, mac_vendors))
-        print(devices)
-        if selected_hosts:
-            for device in devices:
-                create_target(device[0], device[1])  # Crea il target con il nome e l'host
         
-    targets = get_data_targets()
-    return render(request,'myapp/targets.html',{'targets':targets})
-'''
-
-
-def targets_view(request):
-    if request.method == 'POST':
+        referrer = request.META.get('HTTP_REFERER','')
+        if '/targets' in referrer:
+            # Richiesta proveniente dalla pagina targets
+            name = request.POST.get('name')
+            hosts = request.POST.get('hosts')
+            allow_simultaneous_ips = request.POST.get('allow_simultaneous_ips')
+            port_list = request.POST.get('port_list')
+            alive_test = request.POST.get('alive_test')
+            reverse_lookup_only = request.POST.get('reverse_lookup_only')
+            reverse_lookup_unify = request.POST.get('reverse_lookup_unify')
+            comment = request.POST.get('comment')
+            exclude_hosts = request.POST.get('exclude_hosts')
+            
+            try:
+                create_target(
+                                name=name,
+                                hosts=hosts,
+                                allow_simultaneous_ips=allow_simultaneous_ips,
+                                port_list=port_list,
+                                alive_test=alive_test,
+                                reverse_lookup_only=reverse_lookup_only,
+                                reverse_lookup_unify=reverse_lookup_unify,
+                                comment=comment,
+                                exclude_hosts=exclude_hosts
+                                )
+                messages.success(request,"Host aggiunto con successo!")
+            except Exception as e:
+                messages.error(request,f"Errore durante l'aggiunta del task :{e}")
+            
+            targets = get_data_targets()
+            return render(request, 'myapp/targets.html', {'targets': targets})
+        
         selected_hosts = request.POST.getlist('selected_hosts')
         mac_vendors = []
-        print(request.POST)
+        #print(request.POST)
         
 
         # Per ogni IP selezionato, cerca il MAC Vendor corrispondente
@@ -148,9 +169,13 @@ def targets_view(request):
                                     comment=comment,
                                     exclude_hosts=exclude_hosts
                                 )
+                    messages.success(request,"Host aggiunto con successo!")
+                    
                     # print(f"Target {device[0]}aggiunto correttamente")
                 except Exception as e:
-                    print(f"Errore durante l'aggiunta del target {device[0]}: {e}")
+                    messages.error(request,f"Errore durante l'aggiunta del task :{e}")
+                    
+                    #print(f"Errore durante l'aggiunta del target {device[0]}: {e}")
 
     targets = get_data_targets()
     return render(request, 'myapp/targets.html', {'targets': targets})

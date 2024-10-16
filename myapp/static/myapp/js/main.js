@@ -160,3 +160,29 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+
+//Chiusura alert
+
+// setTimeout(function() {
+//         const alerts = document.querySelectorAll('.alert');
+//         alerts.forEach(alert => alert.remove());
+//     }, 3000); // 3000 ms = 3 secondi
+
+document.addEventListener("DOMContentLoaded", function () {
+    const toast = document.getElementById("toast");
+    
+    if (toast) {
+        // Mostra il toast con l'animazione
+        toast.classList.add("toast-show");
+
+        // Nasconde il toast dopo 3 secondi
+        setTimeout(() => {
+            toast.classList.remove("toast-show");
+        }, 3000); // Tempo di visualizzazione in millisecondi
+
+        // Rimuove il toast dal DOM dopo la transizione
+        setTimeout(() => {
+            toast.style.display = 'none';
+        }, 3500); // Dopo la fine della transizione
+    }
+});

@@ -1,8 +1,15 @@
 {% extends "myapp/base.html" %} 
 {% block title %}Targets{% endblock %}
 {% block content %}
+{% include "myapp/components/messages.html" %}
+
 <div class="container-fluid">
-    <button type="" class="btn btn-info"><i class="fa-solid fa-circle-plus me-1"></i>Aggiungi un Target</button>
+    <button 
+    type="button"
+    class="btn btn-info"
+    data-bs-toggle="modal" 
+    data-bs-target="#addTargetModal"
+    ><i class="fa-solid fa-circle-plus me-1"></i>Aggiungi un Target</button>
 </div>
 
 <table class="table table-hover m-1">
@@ -26,6 +33,7 @@
             <td>{{target.portLists}}</td>
             <td>{{target.creation_time|date:"d/m/Y H:i"}}</td>
             <td>
+                <a href="" class="text-dark text-decoration-none pe-1" data-bs-toggle="tooltip" title="Elimina"><i class="fa-solid fa-trash"></i></a>
                 <a href="" class="text-dark text-decoration-none" data-bs-toggle="tooltip" title="Modifica"><i class="fa-solid fa-file-pen"></i></a>
                 <a href="" class="text-dark text-decoration-none"data-bs-toggle="tooltip" title="Copia"><i class="fa-solid fa-clone"></i></a>
                 <a href="" class="text-dark text-decoration-none" data-bs-toggle="tooltip" title="Esporta"><i class="fa-solid fa-file-export"></i></a>
