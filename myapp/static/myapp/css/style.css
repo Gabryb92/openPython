@@ -2,10 +2,28 @@
   color: black !important;
 }
 
+a.text-dark i {
+    color: #010202; /* Colore normale */
+    transform: scale(1); /* Dimensione originale */
+    transition: all 0.3s ease; /* Animazione di ritorno */
+}
+
 a.text-dark:hover i {
     color: #010202e2;
     transform: scale(1.2); /* Aumenta leggermente la dimensione per l'effetto */
     transition: all 0.3s ease; /* Animazione fluida per l'hover */
+}
+
+button.text-dark:hover i {
+    color: #010202e2;
+    transform: scale(1.2); /* Aumenta leggermente la dimensione per l'effetto */
+    transition: all 0.3s ease; /* Animazione fluida per l'hover */
+}
+
+button.text-dark i {
+    color: #010202; /* Colore normale */
+    transform: scale(1); /* Dimensione originale */
+    transition: all 0.3s ease; /* Animazione di ritorno */
 }
 
 .font-modal-hosts{

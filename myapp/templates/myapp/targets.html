@@ -11,39 +11,42 @@
     data-bs-target="#addTargetModal"
     ><i class="fa-solid fa-circle-plus me-1"></i>Aggiungi un Target</button>
 </div>
-
-<table class="table table-hover m-1">
-    <thead>
-        <tr>
-            <th scope="col">Nome</th>
-            <th scope="col">Hosts</th>
-            <th scope="col">IPs</th>
-            <th scope="col">Port List</th>
-            <th scope="col">Creato il</th>
-            <th scope="col">Azioni</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for target in targets %}
-        
-        <tr>
-            <td>{{target.name}}</td>
-            <td>{{target.host}}</td>
-            <td>{{target.IPs}}</td>
-            <td>{{target.portLists}}</td>
-            <td>{{target.creation_time|date:"d/m/Y H:i"}}</td>
-            <td>
-                <a href="" class="text-dark text-decoration-none pe-1" data-bs-toggle="tooltip" title="Elimina"><i class="fa-solid fa-trash"></i></a>
-                <a href="" class="text-dark text-decoration-none" data-bs-toggle="tooltip" title="Modifica"><i class="fa-solid fa-file-pen"></i></a>
-                <a href="" class="text-dark text-decoration-none"data-bs-toggle="tooltip" title="Copia"><i class="fa-solid fa-clone"></i></a>
-                <a href="" class="text-dark text-decoration-none" data-bs-toggle="tooltip" title="Esporta"><i class="fa-solid fa-file-export"></i></a>
-            </td>
-        </tr>
-        
-        {% endfor %}
-    </tbody>
-</table>
-</div>
+{% if not targets %}
+    {% include "myapp/components/empty_messages.html" with element_type="target" %}
+{% else %}
+    <table class="table table-hover m-1">
+        <thead>
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Hosts</th>
+                <th scope="col">IPs</th>
+                <th scope="col">Port List</th>
+                <th scope="col">Creato il</th>
+                <th scope="col">Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for target in targets %}
+            
+            <tr>
+                <td>{{target.name}}</td>
+                <td>{{target.host}}</td>
+                <td>{{target.IPs}}</td>
+                <td>{{target.portLists}}</td>
+                <td>{{target.creation_time|date:"d/m/Y H:i"}}</td>
+                <td>
+                    <a href="" class="text-dark text-decoration-none pe-1" data-bs-toggle="tooltip" title="Elimina"><i class="fa-solid fa-trash"></i></a>
+                    <a href="" class="text-dark text-decoration-none" data-bs-toggle="tooltip" title="Modifica"><i class="fa-solid fa-file-pen"></i></a>
+                    <a href="" class="text-dark text-decoration-none"data-bs-toggle="tooltip" title="Copia"><i class="fa-solid fa-clone"></i></a>
+                    <a href="" class="text-dark text-decoration-none" data-bs-toggle="tooltip" title="Esporta"><i class="fa-solid fa-file-export"></i></a>
+                </td>
+            </tr>
+            
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endif %}
 
 {% include "myapp/components/modal_target.html" %}
 

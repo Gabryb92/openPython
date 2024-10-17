@@ -28,6 +28,8 @@ urlpatterns = [
     path('hosts/',login_required(views.hosts_view),name='hosts'),
     path('get_hosts/',login_required(views.get_hosts)),
     path('targets/',login_required(views.targets_view),name='targets'),
+    path('tasks/start_scan/<task_uuid>/', views.start_scan_view, name='start_scan'),
+    path('tasks/status/<str:task_uuid>/',views.task_status_view, name="tasks_status")
     
     
     #path('login/', views.login_view,name='login'),

@@ -161,12 +161,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-//Chiusura alert
 
-// setTimeout(function() {
-//         const alerts = document.querySelectorAll('.alert');
-//         alerts.forEach(alert => alert.remove());
-//     }, 3000); // 3000 ms = 3 secondi
 
 document.addEventListener("DOMContentLoaded", function () {
     const toast = document.getElementById("toast");
@@ -186,3 +181,36 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 3500); // Dopo la fine della transizione
     }
 });
+
+//Percentuale completamento scan
+
+// Aggiorna la barra di avanzamento di un singolo task
+const taskIds = JSON.parse(document.getElementById("taskIds").textContent);
+
+function updateAllTaskProgress() {
+    taskIds.forEach(task_uuid => {
+        updateTaskProgress(task_uuid);
+    });
+}
+
+function updateTaskProgress(task_uuid) {
+    fetch(`/tasks/status/${task_uuid}/`)
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json()
+        })
+        .then(data => {
+            if (data.progress !== undefined) {
+                const progressBar = document.getElementById(`progress-bar-${task_uuid}`);
+                progressBar.style.width = `${data.progress}%`;
+                progressBar.setAttribute("aria-valuenow", data.progress);
+            }
+        })
+        .catch(error => console.error("Errore nell'aggiornamento dello stato:", error));
+}
+
+
+
+// Esegui updateAllTaskProgress ogni ...
+setInterval(updateAllTaskProgress, 36000);
+

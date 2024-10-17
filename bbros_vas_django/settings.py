@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'gvmd',  # Nome del database
         'USER': '_gvm',  # Utente del database
         'PASSWORD': '',  # Se non vuoi mettere una password, lascia vuoto
-        'HOST': '192.168.79.113',  # L'indirizzo IP del server PostgreSQL
+        'HOST': '192.168.79.109',  # L'indirizzo IP del server PostgreSQL
         'PORT': '5432',  # Porta del server PostgreSQL
     }
 }

@@ -1,3 +1,4 @@
+import json,traceback
 from django.shortcuts import render,redirect
 from django.db import connection
 from django.contrib.auth import authenticate, login, logout
@@ -8,9 +9,10 @@ from django.core.paginator import Paginator
 from myapp.authentication import GVMBackend
 from myapp.utils.ssh_connection import execute_ssh_command
 from myapp.services.targets_service import get_data_targets, create_target
-from myapp.services.tasks_service import get_data_tasks, create_task
+from myapp.services.tasks_service import get_data_tasks, create_task, start_scan_task, parse_scan_status
+
 #from myapp.services.gvm_service import get_scanners
-import crypt
+#import crypt
 
 
 
@@ -68,15 +70,17 @@ def tasks_view(request):
             
     tasks = get_data_tasks()
     targets = get_data_targets()
+    task_uuids = json.dumps([task['uuid'] for task in tasks])
+    print(task_uuids)
     
     
     # scanners = get_scanners()
-    return render(request,'myapp/tasks.html', {'tasks':tasks,'targets':targets})
+    return render(request,'myapp/tasks.html', {'tasks':tasks,'targets':targets,'task_uuids':task_uuids})
 
 
 def get_hosts(request):
     if request.method == "GET":
-        devices = execute_ssh_command()
+        devices = execute_ssh_command('hosts')
         
         
         return JsonResponse({'devices':devices})
@@ -179,3 +183,27 @@ def targets_view(request):
 
     targets = get_data_targets()
     return render(request, 'myapp/targets.html', {'targets': targets})
+
+
+def start_scan_view(request,task_uuid):
+    if request.method =='POST':
+        try:
+            start_scan_task(task_uuid) #Funzione che si collega a OpenVAS e avvia la scansione
+            messages.success(request,f"Scansione avviata per il task {task_uuid}")
+        except Exception as e:
+            messages.error(request,f"Errore durante l'avvio della scansione {e}")
+    return redirect('tasks')
+
+
+def task_status_view(request,task_uuid):
+    try:
+        xml_data = execute_ssh_command("status",task_uuid=task_uuid)
+        #print("Dati XML ricevuti",xml_data)
+        status,progress = parse_scan_status(xml_data)
+        return JsonResponse({'status':status,'progress':progress})
+    except Exception as e:
+        print("Errore nella vista task_status_view:", str(e))
+        #print(traceback.format_exc())
+        # return JsonResponse({'error': str(e)},status=500)
+        return JsonResponse({'status': "Error",'progress':0})
+        

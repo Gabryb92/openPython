@@ -1,13 +1,13 @@
 import paramiko
 import re
 import json
-
+from myapp.utils.vm_data import *
 
 #Vm Kali
-kali_ip='192.168.79.112'
-kali_username = "openvas"
-kali_password = "openvas"
-private_key_path = '/home/gabrieledev/.ssh/id_rsa'
+# kali_ip='192.168.79.113'
+# kali_username = "openvas"
+# kali_password = "openvas"
+# private_key_path = '/home/gabrieledev/.ssh/id_rsa'
 
 
 def get_main_interface_and_ip(ssh):
@@ -83,32 +83,57 @@ def execute_netdiscover(ssh,interface,ipcalc):
     return devices
 
 
-def execute_ssh_command():
+def execute_ssh_command(command,task_uuid=""):
     # Impostazioni della connessione SSH
-    hostname = '192.168.79.113'
-    username = 'openvas'
-    private_key_path = '/home/gabrieledev/.ssh/id_rsa'
+    #hostname = '192.168.79.113'
+    #username = 'openvas'
+    #private_key_path = '/home/gabrieledev/.ssh/id_rsa'
 
     # Instanzia un client SSH
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
+    try:
+        
+        # Connessione alla VM Kali
+        ssh.connect(kali_ip, username=kali_username, key_filename=private_key_path)
+        
+        if command == "hosts":
+            #Ottengo il nome dell'interfaccia e l'ip
+            main_interface,ip_address = get_main_interface_and_ip(ssh)
 
-    # Connessione alla VM Kali
-    ssh.connect(hostname, username=username, key_filename=private_key_path)
-    
-    #Ottengo il nome dell'interfaccia e l'ip
-    main_interface,ip_address = get_main_interface_and_ip(ssh)
+            
 
-    
-
-    ipcalc_output = ipcalc(ssh,ip_address)
-    devices_json = execute_netdiscover(ssh,main_interface,ipcalc_output)
-    devices = json.loads(devices_json)
-    # Chiudi la connessione SSH
-    ssh.close()
-    
-    return devices
+            ipcalc_output = ipcalc(ssh,ip_address)
+            devices_json = execute_netdiscover(ssh,main_interface,ipcalc_output)
+            devices = json.loads(devices_json)
+            
+            
+            return devices
+        elif command == 'scan':
+            scan_command = f"""sudo -u _gvm gvm-cli --gmp-username "admin" --gmp-password "password" socket --xml "<start_task task_id='{task_uuid}'/>" """
+            
+            stdin,stdout,stderr = ssh.exec_command(scan_command)
+            
+            #Recupera output e errori
+            output = stdout.read().decode('utf-8')
+            error = stderr.read().decode('utf-8')
+            
+            if error:
+                raise Exception(f"Errore esecuzione comando di scansione: {error}")
+            return output.strip()
+        
+        elif command == 'status':
+            status_command = f"""sudo -u _gvm gvm-cli --gmp-username "admin" --gmp-password "password"  socket --xml "<get_tasks task_id='{task_uuid}'/>" """
+            
+            stdin, stdout, stderr = ssh.exec_command(status_command)
+            result = stdout.read().decode()
+            return result
+            
+    finally:
+        # Chiudi la connessione SSH
+        ssh.close()
+        
 #execute_ssh_command()
 
 def create_ssh_connection():

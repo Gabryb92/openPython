@@ -9,13 +9,14 @@
     <button class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa-solid fa-circle-plus me-1"></i>Add a Task</button>
 </div>
 {% if not tasks  %}
-<div class="container">
+{% comment %} <div class="container">
     <div class="row d-flex justify-content-center">
         <div class="justify-content-center col-12 col-md-8 alert alert-warning mt-5" role="alert">
             Non ci sono task disponibili al momento.
         </div>
     </div>
-</div>
+</div> {% endcomment %}
+{% include "myapp/components/empty_messages.html" with element_type="task" %}
 
 {% else %}
     <div class="">
@@ -26,6 +27,7 @@
                     <th scope="col">Status</th>
                     <th scope="col">Reports</th>
                     <th scope="col">Ultimo Scan</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Azioni</th>
                 </tr>
             </thead>
@@ -41,7 +43,24 @@
                     {% else %}
                         <td>{{task.end_time}}</td>
                     {% endif %}
+                    <td><div class="progress">
+                        <div 
+                        id="progress-bar-{{ task.uuid }}"
+                        class="progress-bar"
+                        role="progressbar"
+                        style="width: 0%;"
+                        aria-valuenow="0"
+                        aria-valuemin="0"
+                        aria-valuemax="100">
+                            0%
+                        </div>
+                    </div>
+                    </td>
                     <td class="">
+                        <form action="{% url 'start_scan' task.uuid %}" method="POST" class="hidden d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm text-dark text-decoration-none pe-1" data-bs-toggle="tooltip" title="Avvia"><i class="fa-solid fa-play"></i></button>
+                        </form>
                         <a href="" class="text-dark text-decoration-none pe-1" data-bs-toggle="tooltip" title="Elimina"><i class="fa-solid fa-trash"></i></a>
                         <a href="" class="text-dark text-decoration-none" data-bs-toggle="tooltip" title="Modifica"><i class="fa-solid fa-file-pen"></i></a>
                         <a href="" class="text-dark text-decoration-none pe-1"data-bs-toggle="tooltip" title="Copia"><i class="fa-solid fa-clone"></i></a>
@@ -54,7 +73,12 @@
         </table>
     </div>
 {% endif %}
+<script id="taskIds" type="application/json">
+    {{ task_uuids|safe}}
+</script>
 {% include "myapp/components/modal_tasks.html" %}
+
+
 
 {% endblock %}
 
