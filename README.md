@@ -4,10 +4,12 @@ Questo progetto fornisce un'interfaccia web per interagire con OpenVAS. L'interf
 
 ## Prerequisiti
 
-1. **Python 3.8+**
-2. **PostgreSQL** come database per OpenVAS.
-3. **OpenVAS** configurato e funzionante sulla stessa rete, consiglio una macchina Virtuale.
-4. **Chiavi SSH** configurate per la connessione alla VM con OpenVAS.
+- **Python 3.8+**
+- **Django**: Assicurati di avere Django installato nella tua macchina.
+- **Python**: Versione 3.12 o successiva.
+- **PostgreSQL**: Assicurati che il database sia correttamente configurato e in esecuzione.
+- **OpenVAS**: Questo progetto è pensato per interfacciarsi con OpenVAS.
+
 
 ## Installazione
 
