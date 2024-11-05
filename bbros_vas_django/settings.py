@@ -10,9 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from pathlib import Path
-from myapp.utils.vm_data import kali_ip
 import os
+from pathlib import Path
+from dotenv import load_dotenv
+#from myapp.utils.vm_data import kali_ip
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -82,11 +85,11 @@ WSGI_APPLICATION = 'bbros_vas_django.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'gvmd',  # Nome del database
-        'USER': '_gvm',  # Utente del database
-        'PASSWORD': '',  # Password DB
-        'HOST': kali_ip,  # L'indirizzo IP del server PostgreSQL
-        'PORT': '5432',  # Porta del server PostgreSQL
+        'NAME': os.getenv('DB_NAME'),  # Nome del database
+        'USER': os.getenv('DB_USER'),  # Utente del database
+        'PASSWORD': os.getenv('DB_PASSWORD'),  # Password DB
+        'HOST': os.getenv('DB_HOST'),  # L'indirizzo IP del server PostgreSQL
+        'PORT': os.getenv('DB_PORT'),  # Porta del server PostgreSQL
     }
 }
 

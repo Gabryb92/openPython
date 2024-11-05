@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-kali_ip = os.getenv('KALI_IP')
-kali_username = os.getenv('KALI_USERNAME')
-kali_password = os.getenv('KALI_PASSWORD')
+kali_ip = os.getenv('VM_IP')
+kali_username = os.getenv('VM_USERNAME')
+kali_password = os.getenv('VM_PASSWORD')
 private_key_path = os.getenv('PRIVATE_KEY_PATH')
