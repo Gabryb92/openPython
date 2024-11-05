@@ -71,6 +71,6 @@ host    all             all             ip_host/32       trust
 Una volta effettuata le configurazioni puoi lanciare i seguenti comandi per provarlo:
 
 ```bash
-    python3 manage.py runserver
-    python3 manage.py livereload
+python3 manage.py runserver
+python3 manage.py livereload
 ```
