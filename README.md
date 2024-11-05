@@ -50,7 +50,7 @@ DB_USER='nome_utente'
 DB_PASSWORD='password'
 DB_HOST='indirizzo_ip_database' # di solito lo stesso della VM
 DB_PORT='porta_database'
-
+```
 
 ### Configurazione di PostreSQL
 
