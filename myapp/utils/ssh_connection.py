@@ -34,10 +34,10 @@ def ipcalc(ssh,ip):
     stdin, stdout, stderr = ssh.exec_command(ipcalc_command)
     ipcalc_output = stdout.read().decode().splitlines()
     network_subnet,host_min,host_max,broadcast = ipcalc_output
-    #print(ipcalc_output)
+    # print(ipcalc_output)
     network = network_subnet.split('/')[0]
     subnetmask = network_subnet.split('/')[1]
-    #print(network,subnetmask)
+    print(network,subnetmask)
     return [network,subnetmask,host_min,host_max,broadcast]
     
 
@@ -84,11 +84,6 @@ def execute_netdiscover(ssh,interface,ipcalc):
 
 
 def execute_ssh_command(command,task_uuid=""):
-    # Impostazioni della connessione SSH
-    #hostname = '192.168.79.113'
-    #username = 'openvas'
-    #private_key_path = '/home/gabrieledev/.ssh/id_rsa'
-
     # Instanzia un client SSH
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -101,14 +96,11 @@ def execute_ssh_command(command,task_uuid=""):
         if command == "hosts":
             #Ottengo il nome dell'interfaccia e l'ip
             main_interface,ip_address = get_main_interface_and_ip(ssh)
-
-            
-
             ipcalc_output = ipcalc(ssh,ip_address)
             devices_json = execute_netdiscover(ssh,main_interface,ipcalc_output)
             devices = json.loads(devices_json)
             
-            
+
             return devices
         elif command == 'scan':
             scan_command = f"""sudo -u _gvm gvm-cli --gmp-username "admin" --gmp-password "password" socket --xml "<start_task task_id='{task_uuid}'/>" """
@@ -129,12 +121,17 @@ def execute_ssh_command(command,task_uuid=""):
             stdin, stdout, stderr = ssh.exec_command(status_command)
             result = stdout.read().decode()
             return result
-            
-    finally:
-        # Chiudi la connessione SSH
-        ssh.close()
         
-#execute_ssh_command()
+    except paramiko.SSHException as ssh_error:
+        raise Exception(f"Errore di connessione SSH: {ssh_error}")
+
+    except Exception as e:
+        raise Exception(f"Errore generale: {e}")
+    
+    # Chiudi la connessione SSH
+    finally:
+        ssh.close()
+
 
 def create_ssh_connection():
     '''

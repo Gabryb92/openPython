@@ -3,6 +3,7 @@ import crypt
 from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth.models import User
 from django.db import connection
+from django.contrib import messages
 
 class GVMBackend(BaseBackend):
     def authenticate(self, request, username=None, password=None):
@@ -22,15 +23,10 @@ class GVMBackend(BaseBackend):
                     try:
                         # Verifica se l'utente esiste nel database Django
                         user = User.objects.get(username=username)
+                        return user
                     except User.DoesNotExist:
-                        # Se l'utente non esiste, crealo nel database Django
-                        user = User(username=username)
-                        user.set_password(password)  # Salva la password per Django
-                        user.save()
-                    return user
-
-        # Le credenziali non corrispondono, ritorna None
-        return None
+                        messages.error(request,"Username o password non corretti.")
+                        return None
 
     def get_user(self, user_id):
         try:

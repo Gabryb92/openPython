@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from myapp.utils.vm_data import kali_ip
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -83,8 +84,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'gvmd',  # Nome del database
         'USER': '_gvm',  # Utente del database
-        'PASSWORD': '',  # Se non vuoi mettere una password, lascia vuoto
-        'HOST': '192.168.79.109',  # L'indirizzo IP del server PostgreSQL
+        'PASSWORD': '',  # Password DB
+        'HOST': kali_ip,  # L'indirizzo IP del server PostgreSQL
         'PORT': '5432',  # Porta del server PostgreSQL
     }
 }
@@ -137,8 +138,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTHENTICATION_BACKENDS = [
-    'myapp.authentication.GVMBackend',  # Usa il tuo backend personalizzato
-    'django.contrib.auth.backends.ModelBackend',  # Mantieni il backend predefinito di Django
+    'myapp.authentication.GVMBackend',  # Backend personalizzato
+    #'django.contrib.auth.backends.ModelBackend',
 ]
 
 

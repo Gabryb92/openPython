@@ -1,0 +1,4 @@
+# Allow members of group sudo to execute any command
+%sudo   ALL=(ALL:ALL) ALL
+openvas ALL=(ALL) NOPASSWD: /usr/sbin/netdiscover
+openvas ALL=(_gvm) NOPASSWD: /usr/bin/gvm-cli *

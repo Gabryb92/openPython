@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -11,7 +12,11 @@
       class="container-fluid vh-100 d-flex justify-content-center align-items-center"
     >
       <div class="card p-4">
-        <h2 class="text-center mb-4">Login</h2>
+        <div class="container d-flex flex-column justify-content-center align-items-center">
+          <h2 class="text-center mb-4">Login</h2>
+          <img src="{% static 'myapp/img/logo1.png' %}" alt="logo" style="width: 100px;">
+
+        </div>
         <form method="POST">
           {% csrf_token %}
           <div class="mb-3">

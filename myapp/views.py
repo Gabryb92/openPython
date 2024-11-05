@@ -79,11 +79,14 @@ def tasks_view(request):
 
 
 def get_hosts(request):
-    if request.method == "GET":
-        devices = execute_ssh_command('hosts')
-        
-        
-        return JsonResponse({'devices':devices})
+    try:
+        if request.method == "GET":
+            devices = execute_ssh_command('hosts')
+            return JsonResponse({'devices':devices})
+    except Exception as e :
+        messages.error(request,"Si è verificato un errore durante l'operazione. Riprova più tardi.")
+        #print(e)
+        return render(request,'myapp/dashboard.html')
 
 
 
@@ -132,6 +135,7 @@ def targets_view(request):
             return render(request, 'myapp/targets.html', {'targets': targets})
         
         selected_hosts = request.POST.getlist('selected_hosts')
+        print(selected_hosts)
         mac_vendors = []
         #print(request.POST)
         
@@ -139,7 +143,9 @@ def targets_view(request):
         # Per ogni IP selezionato, cerca il MAC Vendor corrispondente
         for ip in selected_hosts:
             mac_vendor = request.POST.get(f'mac_vendors_{ip}')
+            print(request.POST)
             mac_vendors.append(mac_vendor)
+            print(mac_vendor)
 
         # Crea una lista di tuple (IP, MAC Vendor)
         devices = list(zip(selected_hosts, mac_vendors))
