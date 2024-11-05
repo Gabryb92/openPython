@@ -55,13 +55,15 @@ DB_PORT='porta_database'
 ### Configurazione di PostreSQL
 
 Nel file postgresql.conf nella voce listen_addresses inserire il valore:
-
+```bash
 listen_addresses = '*'
+```
 
 Nel file pg_hba.conf nella voce IPv4 local connections inserire una stringa cosi strutturata:
 
+```bash
 host    all             all             ip_host/32       trust
-
+```
 ## Avvio Progetto
 
 Una volta effettuata le configurazioni puoi lanciare i seguenti comandi per provarlo:
@@ -69,4 +71,4 @@ Una volta effettuata le configurazioni puoi lanciare i seguenti comandi per prov
 ```bash
     python3 manage.py runserver
     python3 manage.py livereload
-    ```
+```
