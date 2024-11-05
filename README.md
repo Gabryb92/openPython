@@ -1,74 +1,73 @@
-# Progetto OpenVAS Web Interface
+# OpenVAS Web Interface Project
 
-Questo progetto fornisce un'interfaccia web per interagire con OpenVAS. L'interfaccia è sviluppata in Django e consente di gestire target, task di scansione. Questo README ti guiderà attraverso i passaggi necessari per configurare e avviare il progetto.
+This project provides a web interface to interact with OpenVAS. The interface is developed in Django and allows you to manage targets and scan tasks. This README will guide you through the necessary steps to set up and start the project.
 
-## Prerequisiti
+## Prerequisites
 
 - **Python 3.8+**
-- **Django**: Assicurati di avere Django installato nella tua macchina.
-- **Python**: Versione 3.12 o successiva.
-- **PostgreSQL**: Assicurati che il database sia correttamente configurato e in esecuzione.
-- **OpenVAS**: Questo progetto è pensato per interfacciarsi con OpenVAS.
+- **Django**: Ensure that Django is installed on your machine.
+- **Python**: Version 3.12 or later.
+- **PostgreSQL**: Make sure the database is properly configured and running.
+- **OpenVAS**: This project is designed to interface with OpenVAS.
 
+## Installation
 
-## Installazione
-
-1. **Clona il repository**
+1. **Clone the repository**
 
     ```bash
-    git clone <URL_DEL_REPOSITORY>
-    cd <NOME_CARTELLA_REPOSITORY>
+    git clone <REPOSITORY_URL>
+    cd <REPOSITORY_FOLDER_NAME>
     ```
 
-2. **Crea un ambiente virtuale**:
+2. **Create a virtual environment**:
 
     ```bash
     python3 -m venv venv
     source venv/bin/activate
     ```
 
-3. **Installa le dipendenze**:
-
+3. **Install dependencies**:
 
     ```bash
     pip install -r requirements.txt
     ```
 
-## Configurazione
+## Configuration
 
-### Configura le Variabili d'Ambiente
+### Configure Environment Variables
 
-Copia il file `.env.exaple` e rinominalo `.env` nella root del progetto con le seguenti variabili per configurare la connessione SSH alla macchina OpenVAS e i dettagli del database PostgreSQL:
+Copy the `.env.example` file and rename it to `.env` in the root of the project with the following variables to configure the SSH connection to the OpenVAS machine and PostgreSQL database details:
 
 ```dotenv
-# Configurazione OpenVAS SSH
+# OpenVAS SSH Configuration
 VM_IP='192.168.xx.xx'
 VM_USERNAME='openvas'
 PRIVATE_KEY_PATH='/path/to/private_key'
 
-# Configurazione PostgreSQL
-DB_NAME='nome_database'
-DB_USER='nome_utente'
+# PostgreSQL Configuration
+DB_NAME='database_name'
+DB_USER='username'
 DB_PASSWORD='password'
-DB_HOST='indirizzo_ip_database' # di solito lo stesso della VM
-DB_PORT='porta_database'
+DB_HOST='database_ip_address' # usually the same as the VM
+DB_PORT='database_port'
 ```
 
-### Configurazione di PostreSQL
+### PostgreSQL Configuration
 
-Nel file postgresql.conf nella voce listen_addresses inserire il valore:
+In the `postgresql.conf` file, set the value for `listen_addresses` as follows:
 ```bash
 listen_addresses = '*'
 ```
 
-Nel file pg_hba.conf nella voce IPv4 local connections inserire una stringa cosi strutturata:
+In the `pg_hba.conf` file under IPv4 local connections, add a line structured like this:
 
 ```bash
 host    all             all             ip_host/32       trust
 ```
-## Avvio Progetto
 
-Una volta effettuata le configurazioni puoi lanciare i seguenti comandi per provarlo:
+## Starting the Project
+
+Once the configurations are complete, you can run the following commands to test it:
 
 ```bash
 python3 manage.py runserver
